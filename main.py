@@ -22,6 +22,7 @@ from telegram.ext import (
     ContextTypes,
     MessageHandler,
     CommandHandler,
+    filters
     PicklePersistence,
     Defaults,
     filters,
@@ -62,7 +63,7 @@ async def send(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
     # get the response from the API
     response = await chat.send_message(
-        update.message.text.replace("/chat", "").strip(), typing=typing, context=context
+        update.message.text.replace("@zorolostbot", "").strip(), typing=typing, context=context
     )
 
     response = escape_markdown(response, version=2)
@@ -164,7 +165,7 @@ async def error(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
 def main():
     # Handle messages
-    application.add_handler(CommandHandler("chat", send))
+    application.add_handler(filters.regex('@zorolostbot', send))
     application.add_handler(CommandHandler("bye", start))
     application.add_handler(CommandHandler("reset", reset))
     application.add_handler(CommandHandler("noschedule", schedule))

@@ -59,7 +59,7 @@ async def send(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     chat = get_chat(update, context)
     text = update.message.text
     text = text.split(" ", 1)
-    application.on_message(filters.command(["chat", f"chat@zorolostbot"]))
+    application.bot.on_message(filters.command(["chat", f"chat@zorolostbot"]))
     async def typing():
         await application.bot.send_chat_action(update.effective_chat.id, "typing")
 

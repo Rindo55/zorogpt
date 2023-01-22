@@ -54,7 +54,7 @@ google = Google(os.getenv("SERP_API_KEY"))
 scheduler = Scheduler(application.job_queue)
 
 @auth()
-async def chatx(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+async def send(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """Send message to OpenAI"""
     chat = get_chat(update, context)
     async def typing():
@@ -62,7 +62,7 @@ async def chatx(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
     # get the response from the API
     response = await chat.send_message(
-        update.message.text.replace("/chatx", "").strip(), typing=typing, context=context
+        update.message.text.replace("/chat", "").strip(), typing=typing, context=context
     )
 
     response = escape_markdown(response, version=2)
@@ -164,13 +164,11 @@ async def error(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
 def main():
     # Handle messages
-    application.add_handler(
-        MessageHandler(filters.TEXT & ~filters.COMMAND, send),
-    )
-    application.add_handler(CommandHandler("start", start))
+    application.add_handler(CommandHandler("chat", send))
+    application.add_handler(CommandHandler("bye", start))
     application.add_handler(CommandHandler("reset", reset))
-    application.add_handler(CommandHandler("schedule", schedule))
-    application.add_handler(CommandHandler("browse", browse))
+    application.add_handler(CommandHandler("noschedule", schedule))
+    application.add_handler(CommandHandler("nobrowse", browse))
     application.add_error_handler(error)
 
     # Run the bot until the user presses Ctrl-C

@@ -54,7 +54,7 @@ google = Google(os.getenv("SERP_API_KEY"))
 scheduler = Scheduler(application.job_queue)
 
 @auth()
-@application.bot.on_message(filters.command(["chat", f"chat@zorolostbot"]))
+client.on_message(filters.command(["chat", f"chat@zorolostbot"]))
 async def send(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """Send message to OpenAI"""
     chat = get_chat(update, context)

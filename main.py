@@ -163,7 +163,7 @@ async def error(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
 def main():
     # Handle messages
-    application.add_handler(filters.TEXT & (filters.Entity("@zorolostbot"), send))
+    application.self.and_filter.data_filter(filters.TEXT & (filters.Entity("@zorolostbot"), send))
     application.add_handler(CommandHandler("bye", start))
     application.add_handler(CommandHandler("reset", reset))
     application.add_handler(CommandHandler("noschedule", schedule))

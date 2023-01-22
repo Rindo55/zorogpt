@@ -21,7 +21,6 @@ from telegram.ext import (
     ContextTypes,
     MessageHandler,
     CommandHandler,
-    filters,
     PicklePersistence,
     Defaults,
     filters,
@@ -164,7 +163,7 @@ async def error(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
 def main():
     # Handle messages
-    application.telegram.ext.filters.Regex('@zorolostbot', send)
+    application.add_handler(filters.Regex('@zorolostbot', send))
     application.add_handler(CommandHandler("bye", start))
     application.add_handler(CommandHandler("reset", reset))
     application.add_handler(CommandHandler("noschedule", schedule))

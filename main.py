@@ -52,18 +52,18 @@ google = Google(os.getenv("SERP_API_KEY"))
 # set up the scheduler
 scheduler = Scheduler(application.job_queue)
 
-
+@anibot.on_message(filters.command(["chat", f"chat@zorolostbot"], prefixes=trg))
 @auth()
 async def send(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """Send message to OpenAI"""
     chat = get_chat(update, context)
-
+    text = mdata['text'].split(" ", 1)
     async def typing():
         await application.bot.send_chat_action(update.effective_chat.id, "typing")
 
     # get the response from the API
     response = await chat.send_message(
-        update.message.text, typing=typing, context=context
+        text, typing=typing, context=context
     )
 
     response = escape_markdown(response, version=2)

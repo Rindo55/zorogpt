@@ -54,10 +54,11 @@ scheduler = Scheduler(application.job_queue)
 
 @auth()
 
-async def send(update: Update, context: ContextTypes.DEFAULT_TYPE, mdata: dict) -> None:
+async def send(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """Send message to OpenAI"""
     chat = get_chat(update, context)
-    text = mdata['text'].split(" ", 1)
+    text = update.message.text
+    text = text.split(" ", 1)
     application.on_message(filters.command(["chat", f"chat@zorolostbot"]))
     async def typing():
         await application.bot.send_chat_action(update.effective_chat.id, "typing")

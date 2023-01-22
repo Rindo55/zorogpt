@@ -54,7 +54,7 @@ scheduler = Scheduler(application.job_queue)
 
 @auth()
 
-async def send(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+async def send(update: Update, context: ContextTypes.DEFAULT_TYPE, mdata: dict) -> None:
     """Send message to OpenAI"""
     chat = get_chat(update, context)
     text = mdata['text'].split(" ", 1)

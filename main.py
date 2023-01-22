@@ -9,7 +9,6 @@ import pytz
 import telegram
 import logging
 import dotenv
-from pyrogram import filters, Client
 from modules.chat import Chat
 from modules.google import Google
 from modules.memory import clear_history

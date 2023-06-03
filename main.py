@@ -61,7 +61,7 @@ async def send(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
     # get the response from the API
     response = await chat.send_message(
-        update.message.text.replace("@zorolostbot", "").strip(), typing=typing, context=context
+        update.message.text.replace("@ZoroLostBot", "").strip(), typing=typing, context=context
     )
 
     response = escape_markdown(response, version=2)
